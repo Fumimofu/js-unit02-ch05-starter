@@ -6,6 +6,13 @@ class TranslationApp {
   }
 
   setup() {
+    const locale = document.getElementsByName("data-locale");
+
+    if (locale === 'ja') {
+      polyglot.extend({
+        "hello, world": "こんにちは、世界"
+      });
+    }
     /* 
       現在のLocaleに合わせて、polyglotにメッセージをセットします。
       メッセージのセットにはpolyglot.extend()を利用します。
@@ -13,19 +20,38 @@ class TranslationApp {
   }
 
   updateLocale(e) {
+      const locale = document.getElementsByName("data-locale");
+
+      if (e.button1 && locale === 'en') {
+        locale = 'ja';
+        return;
+      }
+
+      if (e.button2 && locale === 'ja') {
+        locale = 'en';
+        return;
+      }
     /*
       ボタンにセットされたdata-localeを元に現在のlocaleを変更します。
     */
   }
 
   showMessage() {
+    const setup = setup();
+
+    const h1 = document.createElement('h1');
+    const node = document.createTextNode(this.setup);
+    h1.appendChild(node);
+
+    const main = document.getElementById('main');
+    main.appendChild(h1);
     /*
       mainというidがセットされた要素の下にh1タグで現在のlocaleに応じて、メッセージを表示します。 
     */
+
   }
 
 }
-
 
 {
   const button1 = document.getElementById('button1');
