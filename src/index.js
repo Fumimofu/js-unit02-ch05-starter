@@ -1,5 +1,8 @@
 import Polyglot from 'node-polyglot';
 
+  // サイトが立ち上がった時に、TranslationAppクラスをインスタンス化します。-> どこで？
+  // インスタンス変数としてcurrentLocaleという値を作成し、デフォルトで"ja"をセットします。-> どこで？
+
 class TranslationApp {
   constructor() {
     this.polyglot = new Polyglot();
@@ -11,6 +14,12 @@ class TranslationApp {
     if (locale === 'ja') {
       polyglot.extend({
         "hello, world": "こんにちは、世界"
+      });
+    }
+
+    if (locale === 'en') {
+      polyglot.extend({
+        "hello, world": "Hello, world"
       });
     }
     /* 
