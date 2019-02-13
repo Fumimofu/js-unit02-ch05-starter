@@ -1,12 +1,9 @@
 import Polyglot from 'node-polyglot';
 
-  // サイトが立ち上がった時に、TranslationAppクラスをインスタンス化します。-> どこで？
-  // インスタンス変数としてcurrentLocaleという値を作成し、デフォルトで"ja"をセットします。-> どこで？
-
 class TranslationApp {
   constructor() {
     this.polyglot = new Polyglot();
-    let currentLocale = localStorage.getItem('ja');
+    this.currentLocale = localStorage.getItem('locale') || 'ja';
   }
 
   setup() {
@@ -47,14 +44,15 @@ class TranslationApp {
   }
 
   showMessage() {
-    const setup = setup();
-
-    const h1 = document.createElement('h1');
-    const node = document.createTextNode(this.setup);
-    h1.appendChild(node);
-
     const main = document.getElementById('main');
-    main.appendChild(h1);
+
+    if (this.currentLocale === 'ja') {
+      main.innerHTML = `<h1>こんにちは、世界。</h1>`;
+    }
+
+    if (this.currentLocale === 'en') {
+      main.innerHTML = `<h1>Hello, world</h1>`;
+    }
     /*
       mainというidがセットされた要素の下にh1タグで現在のlocaleに応じて、メッセージを表示します。 
     */
@@ -71,4 +69,7 @@ class TranslationApp {
   
   const button2 = document.getElementById('button2');
   button2.addEventListener("click", app.updateLocale);
+
+  app.setup();
+  app.showMessage();
 }
