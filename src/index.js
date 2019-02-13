@@ -6,19 +6,20 @@ import Polyglot from 'node-polyglot';
 class TranslationApp {
   constructor() {
     this.polyglot = new Polyglot();
+    let currentLocale = localStorage.getItem('ja');
   }
 
   setup() {
-    const locale = document.getElementsByName("data-locale");
+    // const locale = document.getElementsByName("data-locale"); いらない？
 
-    if (locale === 'ja') {
-      polyglot.extend({
+    if (this.currentLocale === 'ja') {
+      this.polyglot.extend({
         "hello, world": "こんにちは、世界"
       });
     }
 
-    if (locale === 'en') {
-      polyglot.extend({
+    if (this.currentLocale === 'en') {
+      this.polyglot.extend({
         "hello, world": "Hello, world"
       });
     }
@@ -29,15 +30,15 @@ class TranslationApp {
   }
 
   updateLocale(e) {
-      const locale = document.getElementsByName("data-locale");
+      // const locale = document.getElementsByName("data-locale");　いらない？
 
-      if (e.button1 && locale === 'en') {
-        locale = 'ja';
+      if (e.button1 && this.currentLocale === 'en') {
+        this.currentLocale = 'ja';
         return;
       }
 
-      if (e.button2 && locale === 'ja') {
-        locale = 'en';
+      if (e.button2 && this.currentLocale === 'ja') {
+        this.currentLocale = 'en';
         return;
       }
     /*
@@ -63,6 +64,8 @@ class TranslationApp {
 }
 
 {
+  const app = new TranslationApp;
+
   const button1 = document.getElementById('button1');
   button1.addEventListener("click", app.updateLocale);
   
