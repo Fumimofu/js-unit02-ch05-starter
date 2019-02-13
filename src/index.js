@@ -7,8 +7,6 @@ class TranslationApp {
   }
 
   setup() {
-    // const locale = document.getElementsByName("data-locale"); いらない？
-
     if (this.currentLocale === 'ja') {
       this.polyglot.extend({
         "hello, world": "こんにちは、世界"
@@ -27,14 +25,15 @@ class TranslationApp {
   }
 
   updateLocale(e) {
-      // const locale = document.getElementsByName("data-locale");　いらない？
+      const button1 = document.getElementById('button1');
+      const button2 = document.getElementById('button2');
 
-      if (e.button1 && this.currentLocale === 'en') {
+      if (e.target === button1) {
         this.currentLocale = 'ja';
         return;
       }
 
-      if (e.button2 && this.currentLocale === 'ja') {
+      if (e.target === button2) {
         this.currentLocale = 'en';
         return;
       }
@@ -45,18 +44,10 @@ class TranslationApp {
 
   showMessage() {
     const main = document.getElementById('main');
-
-    if (this.currentLocale === 'ja') {
-      main.innerHTML = `<h1>こんにちは、世界。</h1>`;
-    }
-
-    if (this.currentLocale === 'en') {
-      main.innerHTML = `<h1>Hello, world</h1>`;
-    }
+    main.innerHTML = `<h1>${this.polyglot.t("hello, world")}</h1>`;
     /*
       mainというidがセットされた要素の下にh1タグで現在のlocaleに応じて、メッセージを表示します。 
     */
-
   }
 
 }
